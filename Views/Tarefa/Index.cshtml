@@ -1,0 +1,59 @@
+@model IEnumerable<desafio_agendamento_de_tarefas.Models.Tarefa>;
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Titulo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descricao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Data)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+
+                <th>
+                    Ações
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.Titulo
+                    </td>
+                    <td>
+                        @item.Descricao
+                    </td>
+                    <td>
+                        @item.Data.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @item.Status
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-action="Editar" asp-controller="Tarefa"
+                        asp-route-id="@item.Id">Editar</a>
+                        <a class="btn btn-danger" asp-action="Deletar" asp-controller="Tarefa"
+                        asp-route-id="@item.Id">Deletar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Criar">Criar</a>
+</div>
+<script>
+</script>
