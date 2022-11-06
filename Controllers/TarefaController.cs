@@ -22,11 +22,46 @@ namespace desafio_agendamento_de_tarefas.Controllers
         {
             return View(this.context.Tarefas.ToList());
         }
+        public ActionResult ObterPorData()
+        {
+            return View(this.context.Tarefas.ToList());
+        }
+
+        public ActionResult ObterPorStatus()
+        {
+            return View(this.context.Tarefas.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult ObterPorStatus(TipoStatus status)
+        {
+            if (status == TipoStatus.Tudo)
+            {
+                return View(this.context.Tarefas.ToList());
+            }
+            var c = this.context.Tarefas.Where(x => x.Status == status).ToList();
+            return View(c);
+        }
+
+        [HttpPost]
+        public ActionResult ObterPorData(DateTime data)
+        {
+            var c = this.context.Tarefas.Where(x => x.Data == data).ToList();
+            return View(c);
+        }
+
+        [HttpPost]
+        public ActionResult Index(string titulo)
+        {
+            var c = this.context.Tarefas.Where(x => x.Titulo.Contains(titulo)).ToList();
+            return View(c);
+        }
 
         public ActionResult Criar()
         {
             return View();
         }
+
         public ActionResult Editar(int id)
         {
             var t = this.context.Tarefas.Find(id);
@@ -43,6 +78,11 @@ namespace desafio_agendamento_de_tarefas.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public ActionResult ObterPorTitulo()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Criar(Tarefa tarefa)
         {
@@ -52,9 +92,10 @@ namespace desafio_agendamento_de_tarefas.Controllers
         }
 
         [HttpPost]
-        public ActionResult Editar(Tarefa tarefa){
+        public ActionResult Editar(Tarefa tarefa)
+        {
             var t = this.context.Tarefas.Find(tarefa.Id);
-            
+
             t.Titulo = tarefa.Titulo;
             t.Descricao = tarefa.Descricao;
             t.Data = tarefa.Data;

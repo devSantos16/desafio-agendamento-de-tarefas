@@ -7,6 +7,7 @@ namespace desafio_agendamento_de_tarefas.Models
 {
     public enum TipoStatus
     {
+        Tudo,
         Ativo,
         Desativado
     }

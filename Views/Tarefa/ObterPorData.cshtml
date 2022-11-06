@@ -2,8 +2,8 @@
 <div class="text-center">
     <form asp-controller="Tarefa" asp-action="Index" method="POST">
         <p>
-            Titulo: <input type="text" name="Titulo" />
-            <input type="submit" asp-action="Index" value="Buscar" />
+            Data: <input type="Date" name="Data" />
+            <input type="submit" value="Buscar" asp-action="ObterPorData" />
         </p>
     </form>
     <table class="table">
