@@ -12,12 +12,20 @@ Para rodar o programa você deve rodar as migrations e upar no banco de dados SQ
 
 Add pacote do Entity dotnet add package
 ```
-Microsoft.EntityFrameworkCore.Design dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Design 
 ```
+```
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+```
+
 Adiciona um commit do entity framework no codigo 
 
 ```
-dotnet-ef migrations add CriacaoTabelaContato Push dotnet-ef database update
+dotnet-ef migrations add CriacaoTabelaContato
+``` 
+
+```
+Push dotnet-ef database update
 ```
 
 Para rodar dotnet watch run
