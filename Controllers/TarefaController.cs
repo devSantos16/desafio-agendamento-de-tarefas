@@ -10,7 +10,6 @@ namespace desafio_agendamento_de_tarefas.Controllers
 {
     public class TarefaController : Controller
     {
-
         private readonly TarefaContext context;
 
         public TarefaController(TarefaContext context)
@@ -18,18 +17,19 @@ namespace desafio_agendamento_de_tarefas.Controllers
             this.context = context;
         }
 
-        public ActionResult Index()
+        [HttpPost]
+        public ActionResult Editar(Tarefa tarefa)
         {
-            return View(this.context.Tarefas.ToList());
-        }
-        public ActionResult ObterPorData()
-        {
-            return View(this.context.Tarefas.ToList());
-        }
+            var t = this.context.Tarefas.Find(tarefa.Id);
 
-        public ActionResult ObterPorStatus()
-        {
-            return View(this.context.Tarefas.ToList());
+            t.Titulo = tarefa.Titulo;
+            t.Descricao = tarefa.Descricao;
+            t.Data = tarefa.Data;
+            t.Status = tarefa.Status;
+
+            this.context.Update(t);
+            this.context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
@@ -57,32 +57,6 @@ namespace desafio_agendamento_de_tarefas.Controllers
             return View(c);
         }
 
-        public ActionResult Criar()
-        {
-            return View();
-        }
-
-        public ActionResult Editar(int id)
-        {
-            var t = this.context.Tarefas.Find(id);
-            if (t == null)
-                return RedirectToAction(nameof(Index));
-            return View(t);
-        }
-
-        public ActionResult Deletar(Tarefa tarefa)
-        {
-            var t = this.context.Tarefas.Find(tarefa.Id);
-            this.context.Tarefas.Remove(t);
-            this.context.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
-
-        public ActionResult ObterPorTitulo()
-        {
-            return View();
-        }
-
         [HttpPost]
         public ActionResult Criar(Tarefa tarefa)
         {
@@ -91,19 +65,53 @@ namespace desafio_agendamento_de_tarefas.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        public ActionResult Editar(Tarefa tarefa)
+        [HttpGet]
+        public ActionResult Criar()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Editar(int id)
+        {
+            var t = this.context.Tarefas.Find(id);
+            if (t == null)
+                return RedirectToAction(nameof(Index));
+            return View(t);
+        }
+
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return View(this.context.Tarefas.ToList());
+        }
+
+        [HttpGet]
+        public ActionResult ObterPorData()
+        {
+            return View(this.context.Tarefas.ToList());
+        }
+
+        [HttpGet]
+        public ActionResult ObterPorStatus()
+        {
+            return View(this.context.Tarefas.ToList());
+        }
+
+        [HttpGet]
+        public ActionResult ObterPorTitulo()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Deletar(Tarefa tarefa)
         {
             var t = this.context.Tarefas.Find(tarefa.Id);
-
-            t.Titulo = tarefa.Titulo;
-            t.Descricao = tarefa.Descricao;
-            t.Data = tarefa.Data;
-            t.Status = tarefa.Status;
-
-            this.context.Update(t);
+            this.context.Tarefas.Remove(t);
             this.context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
     }
 }
